@@ -42,7 +42,7 @@ def shrani_stran(html, ime_datoteke):
 def pridobi_vse_strani(osnovni_url, stevilo_strani):
     for i in range(1, stevilo_strani + 1):
         url = osnovni_url + str(i) + "/"
-        print("Prenasam stran", i, ":", url)
+        print("Prenasam stran", i)
         html = pridobi_stran(url)
         if html:
             shrani_stran(html, "stran_" + str(i) + ".html")

@@ -16,3 +16,4 @@ def shrani_v_csv(oglasi, ime_datoteke=ime_csv): #spremenljivko oglasi bos uporab
     f.close()
 
     print("Shranjenih", len(oglasi), "oglasov v", ime_datoteke)
+    

@@ -21,4 +21,44 @@ def preberi_shranjeno_stran(ime_datoteke):
     f.close()
     return vsebina
 
-    
+
+def izlusci_oglase(html):
+    soup = BeautifulSoup(html, "html.parser")
+    oglasi = []
+    elementi = soup.find_all("div", class_="property-box")
+
+    for element in elementi:
+        besedilo = element.get_text(separator=" ", strip=True)
+        kvadratura = poisci_prvo(test_kvadratura, besedilo)
+        sobe = poisci_prvo(test_sobe, besedilo)
+        leto = poisci_prvo(test_leto, besedilo)
+        cena = poisci_prvo(test_cena, besedilo)
+        lokacija = None
+        
+        oglasi.append({
+            "kvadratura_m2": v_stevilo(kvadratura),
+            "sobe": sobe,
+            "leto gradnje": leto,
+            "cena_eur": cena_v_stevilo(cena),
+            "lokacija": lokacija,
+        })
+    return oglasi
+
+
+def poisci_prvo(vzorec, besedilo):
+    zadetek = vzorec.search(besedilo)
+    if zadetek:
+        return zadetek.group(1)
+    return None
+
+
+def v_stevilo(vrednost):
+    if vrednost is None:
+        return None
+    return float(vrednost.replace(",", "."))
+
+def cena_v_stevilo(vrednost):
+    if vrednost is None:
+        return None
+    return float(vrednost.replace(".", "").replace(",", "."))
+
